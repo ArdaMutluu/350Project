@@ -19,7 +19,7 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1") && !isReloading)
+        if (Input.GetButton("Fire1") && !isReloading)
         {
             if (currentAmmo > 0)
             {

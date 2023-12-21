@@ -8,6 +8,9 @@ public class LevelLoader : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1 );
+        if (other.gameObject.gameObject.CompareTag("Player"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1 );
+        }
     }
 }
