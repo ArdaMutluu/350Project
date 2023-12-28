@@ -30,7 +30,14 @@ public class Projectile : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             EnemyController enemy = other.gameObject.GetComponent<EnemyController>();
-            enemy.damage(10);
+            enemy.damage(15);
+            Destroy(gameObject);
+        }
+        
+        if (other.gameObject.tag == "Boss")
+        {
+            Boss boss = other.gameObject.GetComponent<Boss>();
+            boss.damage(2);
             Destroy(gameObject);
         }
         
@@ -41,8 +48,10 @@ public class Projectile : MonoBehaviour
         if (other.gameObject.tag == "CloseEnemy")
         {
             CloseEnemy enemy = other.gameObject.GetComponent<CloseEnemy>();
-            enemy.damage(5);
+            enemy.damage(10);
             Destroy(gameObject);
         }
+        
+        
     }
 }

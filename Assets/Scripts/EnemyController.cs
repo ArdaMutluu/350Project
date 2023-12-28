@@ -37,11 +37,13 @@ public class EnemyController : MonoBehaviour
     {
         if (health <= 0) return;
         health -= dmg;
+        GetComponent<Animator>().Play("GetHit");
         if (health <= 0)
         {
             die();
         }
     }
+    
 
     void die()
     {

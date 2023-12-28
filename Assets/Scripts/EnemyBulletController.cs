@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class EnemyBulletController : BulletController
 {
+    public AudioSource fireSound;
     override public void Start()
     {
         base.Start();
+        fireSound.Play();
         Vector3 rotation = transform.eulerAngles;
         rotation.y += 90;
         transform.eulerAngles = rotation;

@@ -9,7 +9,7 @@ public class Cam : MonoBehaviour
     public float height = 12f;
     private Vector3 velocity = Vector3.zero;
     private float currentShakeScreenDuration = 0;
-    private float shakeIntensity = 0.2f;
+    private float shakeIntensity = 0.4f;
 
     void Start()
     {
@@ -50,7 +50,7 @@ public class Cam : MonoBehaviour
         transform.position = Vector3.SmoothDamp(transform.position, newPos, ref velocity, smoothTime);
     }
 
-    public void shake(float duration = 0.2f)
+    public void shake(float duration = 0.4f)
     {
         currentShakeScreenDuration = duration;
     }

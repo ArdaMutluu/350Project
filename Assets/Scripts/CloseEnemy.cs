@@ -26,7 +26,7 @@ public class CloseEnemy : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player").transform;
         health = maxHealth;
 
-        // Check if the NavMeshAgent is enabled and on the NavMesh
+      
         if (pathfinder.isActiveAndEnabled && pathfinder.isOnNavMesh)
         {
             StartCoroutine(UpdatePath());
@@ -53,7 +53,7 @@ void Update()
         {
             StartCoroutine(Attack());
             nextAttackTime = Time.time + attackCooldown;
-            hasDealtDamage = false; // Reset the flag when starting a new attack
+            hasDealtDamage = false; 
         }
     }
 }
@@ -71,35 +71,54 @@ IEnumerator Attack()
 
     float attackSpeed = 3;
     float percent = 0;
-
+    
     skinMaterial.color = Color.red;
+    
+    foreach (Renderer childRenderer in GetComponentsInChildren<Renderer>())
+    {
+        childRenderer.material.color = Color.red;
+    }
 
     while (percent <= 1)
     {
         percent += Time.deltaTime * attackSpeed;
         float interpolation = (-Mathf.Pow(percent, 2) + percent) * 4;
         transform.position = Vector3.Lerp(originalPosition, attackPosition, interpolation);
-
-        // Check for player proximity during the attack animation
+        
         float sqrDstToTarget = (target.position - transform.position).sqrMagnitude;
         if (sqrDstToTarget < Mathf.Pow(attackDistanceThreshold + myCollisionRadius + targetCollisionRadius, 2) && !hasDealtDamage)
         {
-            // Check if the player is within range and apply damage
             Player player = target.GetComponent<Player>();
             if (player != null)
             {
                 player.damage(10);
-                hasDealtDamage = true; // Set the flag to true once damage is applied
+                hasDealtDamage = true; 
             }
         }
 
         yield return null;
     }
-
+    
     skinMaterial.color = originalColour;
+    
+    foreach (Renderer childRenderer in GetComponentsInChildren<Renderer>())
+    {
+        childRenderer.material.color = originalColour;
+    }
 
     pathfinder.enabled = true;
     isAttacking = false;
+}
+
+IEnumerator Flash()
+{
+    foreach (Renderer childRenderer in GetComponentsInChildren<Renderer>())
+    {
+        childRenderer.material.color = Color.white;
+        yield return new WaitForSeconds(0.2f);
+        childRenderer.material.color = originalColour;
+        pathfinder.enabled = true;
+    }
 }
 
 
@@ -107,6 +126,7 @@ IEnumerator Attack()
     {
         if (health <= 0) return;
         health -= dmg;
+        StartCoroutine(Flash());
         if (health <= 0)
         {
             Die();

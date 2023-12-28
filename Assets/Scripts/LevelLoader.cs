@@ -11,6 +11,7 @@ public class LevelLoader : MonoBehaviour
         if (other.gameObject.gameObject.CompareTag("Player"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1 );
+            Player.health = Player.maxHealth;
         }
     }
 }
