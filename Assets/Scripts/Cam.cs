@@ -30,10 +30,6 @@ public class Cam : MonoBehaviour
 
     public void centerCameraOnPlayer(float smoothTime)
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("adventure-scene");
-        }
         if (player.isDead()) return;
         Vector3 playerPos = player.transform.position;
         Vector3 mousePos = player.transform.position; // default value in case we don't detect mouse position
